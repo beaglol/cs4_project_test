@@ -1,0 +1,4 @@
+Instructions to pushing onto GitHub:
+git add . #OR (if new file) git add "File Name Hoes Here"
+git commit -m "Comment Goes Here" #Commit Name
+git push -u origin main #pushes onto GitHub
