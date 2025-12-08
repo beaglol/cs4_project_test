@@ -9,17 +9,17 @@
  * 
  * What it does:
  * 1. **Guest Mode (Logged Out)**:
- *    • Prominent 6-digit game code input
- *    • "Join Game" button (demo: logs code)
- *    • "Log In" and "Sign Up" buttons below
- *    • "Go to Home" link at bottom
+ *    - Prominent 6-digit game code input
+ *    - "Join Game" button (demo: logs code)
+ *    - "Log In" and "Sign Up" buttons below
+ *    - "Go to Home" link at bottom
  * 
  * 2. **Logged-In Mode**:
- *    • Shows user's current **gold balance**
- *    • Navigation buttons:
- *      → View Profile
- *      → Store (purchase items)
- *      → Log Out
+ *    - Shows user's current **gold balance**
+ *    - Navigation buttons:
+ *      View Profile
+ *      Store (purchase items)
+ *      Log Out
  * 
  * 3. Input Features:
  *    • Real-time numeric filtering (only 0–9 allowed)
