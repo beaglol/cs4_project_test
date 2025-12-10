@@ -384,7 +384,7 @@ export default function CreateGameMenu({ navigation, route }) {
       }
       style={[
         styles.correctToggleIcon,
-        { tintColor: isCorrect ? '#00c781' : '#e74c3c' },
+        { tintColor: isCorrect ? '#ffff' : '#e74c3c' },
       ]}
       resizeMode="contain"
     />
