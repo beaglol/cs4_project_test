@@ -1,6 +1,7 @@
 /**
- * TeacherDashboard.js - FINAL CLEAN VERSION
- * No errors, no jiggle, beautiful sidebar
+ * TeacherDashboard.js - FINAL BUG-FREE VERSION
+ * Clean dark theme, modern sidebar with icons
+ * No jiggle, no errors, all modals working
  */
 
 import React, { useState, useEffect } from 'react';
@@ -45,6 +46,7 @@ export default function TeacherDashboard({ navigation, route }) {
   const [deleteModal, setDeleteModal] = useState({ isOpen: false, gameId: null, gameTitle: '' });
   const [publishModal, setPublishModal] = useState({ isOpen: false, gameId: null, gameTitle: '', willPublish: true });
   const [titleModal, setTitleModal] = useState({ isOpen: false, currentTitle: '', onSave: () => {} });
+  const [logoutModal, setLogoutModal] = useState(false); // Logout confirmation
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,7 +97,12 @@ export default function TeacherDashboard({ navigation, route }) {
     });
   };
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
+    setLogoutModal(true);
+  };
+
+  const confirmLogout = async () => {
+    setLogoutModal(false);
     await signOut(auth);
     await AsyncStorage.removeItem('userToken');
     navigation.reset({ index: 0, routes: [{ name: 'Home' }] });
@@ -385,7 +392,7 @@ export default function TeacherDashboard({ navigation, route }) {
         )}
       </View>
 
-      {/* Modals */}
+      {/* Title Modal */}
       <Modal visible={titleModal.isOpen} transparent animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.titleModal}>
@@ -414,6 +421,7 @@ export default function TeacherDashboard({ navigation, route }) {
         </View>
       </Modal>
 
+      {/* Delete Modal */}
       <Modal visible={deleteModal.isOpen} transparent animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.deleteModal}>
@@ -433,6 +441,7 @@ export default function TeacherDashboard({ navigation, route }) {
         </View>
       </Modal>
 
+      {/* Publish Modal */}
       <Modal visible={publishModal.isOpen} transparent animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.deleteModal}>
@@ -452,6 +461,26 @@ export default function TeacherDashboard({ navigation, route }) {
                 <Text style={styles.deleteModalConfirmText}>
                   {publishModal.willPublish ? 'Publish' : 'Unpublish'}
                 </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Logout Confirmation Modal */}
+      <Modal visible={logoutModal} transparent animationType="fade">
+        <View style={styles.modalOverlay}>
+          <View style={styles.deleteModal}>
+            <Text style={styles.deleteModalTitle}>Log out?</Text>
+            <Text style={styles.deleteModalText}>
+              Are you sure you want to log out of Brain Board?
+            </Text>
+            <View style={styles.deleteModalButtons}>
+              <TouchableOpacity style={styles.deleteModalCancel} onPress={() => setLogoutModal(false)}>
+                <Text style={styles.deleteModalCancelText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.deleteModalConfirm} onPress={confirmLogout}>
+                <Text style={styles.deleteModalConfirmText}>Log out</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -486,11 +515,11 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginBottom: 8,
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: 'transparent', // Prevents layout shift
   },
   tabRowActive: {
     backgroundColor: '#003322',
-    borderColor: '#00c781',
+    //borderColor: '#00c781', I prefer it without border
   },
   tabIcon: {
     width: 24,
